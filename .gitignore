@@ -33,3 +33,6 @@ metals.sbt
 
 # Scala fmt
 .scalafmt.conf
+
+# Scala Build
+.scala-build
