@@ -1,8 +1,8 @@
 package exercism
 
-class GradeSchool {}
+class GradeSchool
 
-class School {
+class School:
   private type DB = Map[Int, Seq[String]]
   private var currentDB: DB = Map()
 
@@ -21,6 +21,5 @@ class School {
     case None        => Seq()
   }
 
-  def sorted: DB = currentDB.toSeq.sorted.map((k, v) => (k, v.sorted)).toMap
-
-}
+  def sorted: DB =
+    currentDB.toSeq.sorted.map((k, v) => (k, v.sorted)).toMap
