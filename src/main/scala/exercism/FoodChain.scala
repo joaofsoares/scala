@@ -64,7 +64,7 @@ object FoodChain:
 
     str.mkString
 
-class Chain(str: String, first: String, previous: Map[String, String]):
+private class Chain(str: String, first: String, previous: Map[String, String]):
   private def swallow: String = s"I know an old lady who swallowed a $str.\n"
 
   private def action: String =
