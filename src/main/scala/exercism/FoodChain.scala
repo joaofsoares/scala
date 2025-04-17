@@ -7,67 +7,54 @@ object FoodChain:
     val str =
       for i <- start to end yield i match
         case 1 =>
-          Chain("fly", "fly", SeqMap.empty[String, String]).generateVerse
+          generateVerse("fly", SeqMap.empty[String, String])
         case 2 =>
-          Chain("spider", "fly", SeqMap("spider" -> "fly")).generateVerse
+          generateVerse("spider", SeqMap("spider" -> "fly"))
         case 3 =>
-          Chain(
-            "bird",
-            "fly",
-            SeqMap("bird" -> "spider", "spider" -> "fly")
-          ).generateVerse
+          generateVerse("bird", SeqMap("bird" -> "spider", "spider" -> "fly"))
         case 4 =>
-          Chain(
-            "cat",
-            "fly",
-            SeqMap("cat" -> "bird", "bird" -> "spider", "spider" -> "fly")
-          ).generateVerse
+          generateVerse("cat", SeqMap("cat" -> "bird", "bird" -> "spider", "spider" -> "fly"))
         case 5 =>
-          Chain(
-            "dog",
-            "fly",
-            SeqMap(
-              "dog" -> "cat",
-              "cat" -> "bird",
-              "bird" -> "spider",
-              "spider" -> "fly"
-            )
-          ).generateVerse
+          generateVerse("dog", 
+          SeqMap(
+            "dog" -> "cat",
+            "cat" -> "bird",
+            "bird" -> "spider",
+            "spider" -> "fly"
+          ))
         case 6 =>
-          Chain(
-            "goat",
-            "fly",
-            SeqMap(
-              "goat" -> "dog",
-              "dog" -> "cat",
-              "cat" -> "bird",
-              "bird" -> "spider",
-              "spider" -> "fly"
-            )
-          ).generateVerse
+          generateVerse("goat", SeqMap(
+            "goat" -> "dog",
+            "dog" -> "cat",
+            "cat" -> "bird",
+            "bird" -> "spider",
+            "spider" -> "fly"
+          ))
         case 7 =>
-          Chain(
-            "cow",
-            "fly",
-            SeqMap(
-              "cow" -> "goat",
-              "goat" -> "dog",
-              "dog" -> "cat",
-              "cat" -> "bird",
-              "bird" -> "spider",
-              "spider" -> "fly"
-            )
-          ).generateVerse
+          generateVerse("cow", SeqMap(
+            "cow" -> "goat",
+            "goat" -> "dog",
+            "dog" -> "cat",
+            "cat" -> "bird",
+            "bird" -> "spider",
+            "spider" -> "fly"
+          ))
         case 8 =>
-          Chain("horse", "fly", SeqMap.empty[String, String]).generateVerse
+          generateVerse("horse", SeqMap.empty[String, String])
         case _ =>
 
     str.mkString
 
-private class Chain(str: String, first: String, previous: Map[String, String]):
-  private def swallow: String = s"I know an old lady who swallowed a $str.\n"
+  private def generateVerse(
+      str: String,
+      previous: Map[String, String]
+  ): String =
+    swallow(str) + action(str) + regression(previous) + lastMessage(str)
 
-  private def action: String =
+  private def swallow(str: String): String =
+    s"I know an old lady who swallowed a $str.\n"
+
+  private def action(str: String): String =
     str match
       case "spider" => "It wriggled and jiggled and tickled inside her.\n"
       case "bird"   => "How absurd to swallow a bird!\n"
@@ -77,13 +64,7 @@ private class Chain(str: String, first: String, previous: Map[String, String]):
       case "cow"    => "I don't know how she swallowed a cow!\n"
       case _        => ""
 
-  private def lastMessage: String =
-    str match
-      case "horse" => "She's dead, of course!\n\n"
-      case _ =>
-        s"I don't know why she swallowed the $first. Perhaps she'll die.\n\n"
-
-  private def regression: String =
+  private def regression(previous: Map[String, String]): String =
     previous
       .map((k, v) =>
         v match
@@ -93,5 +74,8 @@ private class Chain(str: String, first: String, previous: Map[String, String]):
       )
       .mkString
 
-  def generateVerse: String =
-    swallow + action + regression + lastMessage
+  private def lastMessage(str: String): String =
+    str match
+      case "horse" => "She's dead, of course!\n\n"
+      case _ =>
+        s"I don't know why she swallowed the fly. Perhaps she'll die.\n\n"
