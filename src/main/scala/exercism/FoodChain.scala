@@ -41,7 +41,7 @@ object FoodChain:
           ))
         case 8 =>
           generateVerse("horse", SeqMap.empty[String, String])
-        case _ =>
+        case _ => ""
 
     str.mkString
 
