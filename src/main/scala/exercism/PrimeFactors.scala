@@ -1,3 +1,5 @@
+package exercism
+
 import scala.annotation.tailrec
 
 object PrimeFactors {
@@ -6,11 +8,15 @@ object PrimeFactors {
   }
 
   @tailrec
-  private def getFactors(num: Long, divisor: Long, acc: List[Long]): List[Long] = {
+  private def getFactors(
+      num: Long,
+      divisor: Long,
+      acc: List[Long]
+  ): List[Long] = {
     (num / divisor, num % divisor) match {
       case (1, 0) => acc :+ divisor
       case (r, 0) => getFactors(r, divisor, acc :+ divisor)
-      case _ => getFactors(num, divisor + 1, acc)
+      case _      => getFactors(num, divisor + 1, acc)
     }
   }
 }
