@@ -12,7 +12,6 @@ case class Meetup(month: Int, year: Int) {
         val localDate = LocalDate.of(year, month, f)
         localDate.getDayOfWeek.getValue == dayOfWeek
       })
-
     } else {
       (1 to monthSize).filter(d => {
         val localDate = LocalDate.of(year, month, d)
