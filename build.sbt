@@ -10,5 +10,7 @@ lazy val root = project
       "org.scalameta" %% "munit" % "1.1.0" % Test,
       "org.scalatest" %% "scalatest" % "3.2.19" % Test,
       "org.scalatest" %% "scalatest-flatspec" % "3.2.19" % Test
+      // "org.scalacheck" %% "scalacheck" % "1.19.0" % Test,
+      // "org.scalatestplus" %% "scalacheck-1-19" % "3.2.19.0" % Test
     )
   )
