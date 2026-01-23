@@ -1,9 +1,9 @@
 package exercism
 
-import scala.collection.mutable.ArrayDeque
+import scala.collection.mutable.ListBuffer
 
 class Deque[A] {
-  private var xs = new ArrayDeque[A]()
+  private var xs = new ListBuffer[A]()
 
   def push(element: A) = xs.append(element)
 
