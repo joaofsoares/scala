@@ -1,10 +1,14 @@
 package exercism
 
-case class Bst(input: Int, left: Option[Bst], right: Option[Bst]) {
+case class Bst[A: Ordering](
+    input: A,
+    left: Option[Bst[A]],
+    right: Option[Bst[A]]
+) {
   val value = input
 
-  def insert(v: Int): Bst = {
-    if (v <= input) {
+  def insert(v: A): Bst[A] = {
+    if (!compare(v, input)) {
       if (left.nonEmpty) {
         Bst(input, Some(left.get.insert(v)), right)
       } else {
@@ -18,14 +22,21 @@ case class Bst(input: Int, left: Option[Bst], right: Option[Bst]) {
       }
     }
   }
+
+  private def compare[A: Ordering](a: A, b: A): Boolean = {
+    val ord = implicitly[Ordering[A]]
+    if (ord.gt(a, b)) true else false
+  }
 }
 
 object Bst {
-  def apply(value: Int) = new Bst(value, None, None)
+  def apply[A: Ordering](value: A) = new Bst(value, None, None)
 
-  def fromList(xs: List[Int]): Bst = xs.tail.foldLeft(Bst(xs.head))(_.insert(_))
+  def fromList[A: Ordering](xs: List[A]): Bst[A] =
+    xs.tail.foldLeft(Bst(xs.head))(_.insert(_))
 
-  def toList(bst: Bst): List[Int] = bst.left.fold(List.empty[Int])(toList) ++
-    List(bst.value) ++
-    bst.right.fold(List.empty[Int])(toList)
+  def toList[A: Ordering](bst: Bst[A]): List[A] =
+    bst.left.fold(List.empty[A])(toList) ++
+      List(bst.value) ++
+      bst.right.fold(List.empty[A])(toList)
 }
