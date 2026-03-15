@@ -1,13 +1,17 @@
 package exercism
 
-import scala.collection.mutable.ListBuffer
-
 class Accumulate {
   def accumulate[A, B](f: (A) => B, list: List[A]): List[B] = {
+
+    list.map(f(_))
+
+    /* without using built in lib
     var arr = ListBuffer.empty[B]
-    list.foreach(x => {
-      arr.addOne(f(x))
-    })
+    for element <- list do {
+      arr.addOne(f(element))
+    }
     arr.toList
+     */
+
   }
 }
